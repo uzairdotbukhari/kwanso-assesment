@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { Container } from "@mui/material";
 
 import DataTable from "../components/dataTable.component";

@@ -23,86 +23,84 @@ interface IDataTableProps {
 }
 
 interface IProfileRes {
-  results: IProfile[]
+  results: IProfile[];
   info: {
-    seed: string
-    results: number
-    page: number
-    version: string
-  }
-  
+    seed: string;
+    results: number;
+    page: number;
+    version: string;
+  };
 }
 
 interface IProfile {
-  gender: string
-  name: IName
-  location: ILocation
-  email: string
-  login: ILogin
-  dob: IDob
+  gender: string;
+  name: IName;
+  location: ILocation;
+  email: string;
+  login: ILogin;
+  dob: IDob;
   registered: {
-    date: string
-    age: number
-  }
-  phone: string
-  cell: string
+    date: string;
+    age: number;
+  };
+  phone: string;
+  cell: string;
   id: {
-    name: string
-    value: string
-  }
-  picture: IPicture
-  nat: string
+    name: string;
+    value: string;
+  };
+  picture: {
+    large: string;
+    medium: string;
+    thumbnail: string;
+  };
+  nat: string;
 }
 
-interface Name {
-  title: string
-  first: string
-  last: string
+interface IName {
+  title: string;
+  first: string;
+  last: string;
 }
 
-interface Location {
-  street: Street
-  city: string
-  state: string
-  country: string
-  postcode: number
-  coordinates: Coordinates
-  timezone: Timezone
+interface ILocation {
+  street: {
+    number: number;
+    name: string;
+  };
+  city: string;
+  state: string;
+  country: string;
+  postcode: number;
+  coordinates: ICoordinates;
+  timezone: ITimezone;
 }
 
-interface Street {
-  number: number
-  name: string
+interface ICoordinates {
+  latitude: string;
+  longitude: string;
 }
 
-interface Coordinates {
-  latitude: string
-  longitude: string
+interface ITimezone {
+  offset: string;
+  description: string;
 }
 
-interface Timezone {
-  offset: string
-  description: string
+interface ILogin {
+  uuid: string;
+  username: string;
+  password: string;
+  salt: string;
+  md5: string;
+  sha1: string;
+  sha256: string;
 }
 
-interface Login {
-  uuid: string
-  username: string
-  password: string
-  salt: string
-  md5: string
-  sha1: string
-  sha256: string
+interface IDob {
+  date: string;
+  age: number;
 }
 
-interface Dob {
-  date: string
-  age: number
+interface INestedObject {
+  [key: string]: NestedObject;
 }
-
-interface Picture {
-  large: string
-  medium: string
-  thumbnail: string
-}
-

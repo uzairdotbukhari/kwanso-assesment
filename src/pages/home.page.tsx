@@ -60,13 +60,13 @@ const Home: FC = () => {
   });
 
   const filteredData = useMemo(() => {
-    return (
-      data?.filter(
-        (item) =>
-          item.name.toLowerCase().includes(searchVal.toLowerCase()) ||
-          item.email.toLowerCase().includes(searchVal.toLowerCase())
-      ) ?? []
-    );
+    return data
+      ? data?.filter(
+          (item) =>
+            item.name.toLowerCase().includes(searchVal.toLowerCase()) ||
+            item.email.toLowerCase().includes(searchVal.toLowerCase())
+        )
+      : [];
   }, [searchVal, data]);
 
   return (

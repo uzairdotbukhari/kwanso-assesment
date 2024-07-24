@@ -14,6 +14,7 @@ import {
   getCountryFlag,
   getNestedProperty,
 } from "../utils/helpers/index.helper";
+import { APP_ROUTES } from "../utils/constants/routes.constant";
 
 interface IProfileTab {
   tabId: string;
@@ -73,7 +74,7 @@ const Profile = () => {
   useEffect(() => {
     // redirect if state is null or empty
     if (state === null || state === undefined) {
-      navigate("/");
+      navigate(APP_ROUTES.LISTING);
     }
   }, [state, navigate]);
   

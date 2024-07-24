@@ -11,7 +11,7 @@ import { getProfiles } from "../utils/services/profile.service";
 
 import { useAppContext } from "../utils/hooks/useAppContext.hook";
 
-const Home: FC = () => {
+const Listing: FC = () => {
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
   const [searchVal, setSearchVal] = useState<string>("");
@@ -126,4 +126,4 @@ const Home: FC = () => {
   );
 };
 
-export default Home;
+export default Listing;

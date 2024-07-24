@@ -1,0 +1,1 @@
+type ProfileGender = "male" | "female" | "";

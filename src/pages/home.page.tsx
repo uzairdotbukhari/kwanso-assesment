@@ -1,17 +1,21 @@
 import { FC, useMemo, useState } from "react";
-import { Container } from "@mui/material";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { Container, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
 import DataTable from "../components/dataTable.component";
-import { useQuery } from "react-query";
 import Pagination from "../components/customPagination.component";
-import { getProfiles } from "../utils/services/profile.service";
-import { useNavigate } from "react-router-dom";
 import InputField from "../elements/input-field/input-field.component";
+
+import { getProfiles } from "../utils/services/profile.service";
+
+import { useAppContext } from "../utils/hooks/useAppContext.hook";
 
 const Home: FC = () => {
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
   const [searchVal, setSearchVal] = useState<string>("");
+  const { gender, setGender } = useAppContext();
 
   const navigate = useNavigate();
 
@@ -26,9 +30,9 @@ const Home: FC = () => {
   );
 
   const { isFetched, data } = useQuery({
-    queryKey: ["fetchProfiles", page, pageSize],
+    queryKey: ["fetchProfiles", page, pageSize, gender],
     queryFn: async () => {
-      const response = await getProfiles(page, pageSize);
+      const response = await getProfiles(page, pageSize, gender);
       const { results } = response as IProfileRes;
 
       const rowData = results.map((profile) => ({
@@ -59,6 +63,15 @@ const Home: FC = () => {
     cacheTime: 30 * 60 * 1000, // 30 minutes
   });
 
+  const handleGenderChange = (e: SelectChangeEvent) => {
+    if (e.target.value === "all") {
+      setGender("");
+    } else {
+      setGender(e.target.value as ProfileGender);
+    }
+    setPage(1);
+  };
+
   const filteredData = useMemo(() => {
     return data
       ? data?.filter(
@@ -74,11 +87,29 @@ const Home: FC = () => {
       <h1 className="text-2xl my-2 mb-10 text-center">
         List of all profiles with pagination
       </h1>
-      <InputField
-        placeholder="Search by name, email"
-        title="Search"
-        onChange={(e) => setSearchVal(e.target.value)}
-      />
+      <div className="flex justify-between items-center">
+        <InputField
+          placeholder="Search by name, email"
+          title="Search"
+          onChange={(e) => setSearchVal(e.target.value)}
+        />
+        <div className="flex items-center gap-2">
+          <p>Gender: </p>
+          <Select
+            value={gender == "" ? "all" : gender}
+            onChange={handleGenderChange}
+            variant="outlined"
+            size="small"
+            sx={{ borderRadius: 1, "& .MuiSelect-select": { paddingY: 1.5 } }}
+          >
+            {["all", "male", "female"].map((size) => (
+              <MenuItem key={size} value={size}>
+                {size}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
+      </div>
       <DataTable
         isLoading={!isFetched}
         columns={tableColumns}

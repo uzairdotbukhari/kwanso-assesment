@@ -1,10 +1,11 @@
 export const getProfiles = async (
   page: number,
-  pageSize: number
+  pageSize: number,
+  gender: ProfileGender
 ): Promise<unknown> => {
   try {
     const response = await fetch(
-      `https://randomuser.me/api/?page=${page}&results=${pageSize}`
+      `https://randomuser.me/api/?page=${page}&results=${pageSize}&gender=${gender}`
     );
 
     if (!response.ok) {
